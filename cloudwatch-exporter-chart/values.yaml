@@ -1,0 +1,26 @@
+# Default values for cloudwatch-exporter-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: tv733/cloudwatch-exporter
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  enabled: False
+
+aws:
+  aws_access_key_id:
+  aws_secret_access_key:
+  aws_default_region: us-east-1
