@@ -1,18 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudwatch-exporter-chart-deployment
+  name: {{ include "cloudwatch-exporter-chart.fullname" . }}
   labels:
-    app: cloudwatch-exporter-chart
+    app.kubernetes.io/name: {{ include "cloudwatch-exporter-chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/cluster: {{ include "cloudwatch-exporter-chart.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: cloudwatch-exporter-chart
+      app.kubernetes.io/name: {{ include "cloudwatch-exporter-chart.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: cloudwatch-exporter-chart
+        app.kubernetes.io/name: {{ include "cloudwatch-exporter-chart.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/cluster: {{ include "cloudwatch-exporter-chart.fullname" . }}
     spec:
       containers:
       - name: cloudwatch-exporter-chart
@@ -20,15 +27,15 @@ spec:
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
               secretKeyRef:
-                key: aws_access_key_id
-                name: cloudwatch-exporter-chart-secret
+                key: aws-access-key-id
+                name: {{ include "cloudwatch-exporter-chart.fullname" . }}
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                key: aws_secret_access_key
-                name: cloudwatch-exporter-chart-secret
+                key: aws-secret-access-key
+                name: {{ include "cloudwatch-exporter-chart.fullname" . }}
           - name: AWS_DEFAULT_REGION
-            value: {{ .Values.aws.aws_default_region | quote }}
+            value: {{ .Values.aws.defaultRegion | quote }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         pullPolicy: "{{ .Values.image.pullPolicy }}"
         ports:

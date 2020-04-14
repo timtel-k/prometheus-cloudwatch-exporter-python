@@ -5,6 +5,7 @@
 replicaCount: 1
 
 image:
+#  repository: 138150065595.dkr.ecr.us-east-1.amazonaws.com/jbt-athena-exporter
   repository: tv733/cloudwatch-exporter
   pullPolicy: IfNotPresent
   tag: latest
@@ -21,6 +22,6 @@ ingress:
   enabled: False
 
 aws:
-  aws_access_key_id:
-  aws_secret_access_key:
-  aws_default_region: us-east-1
+  accessKeyId:
+  secretAccessKey:
+  defaultRegion: us-east-1

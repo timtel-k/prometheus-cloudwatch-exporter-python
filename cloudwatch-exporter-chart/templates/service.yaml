@@ -1,12 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cloudwatch-exporter-chart-service
+  name: {{ include "cloudwatch-exporter-chart.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "cloudwatch-exporter-chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/cluster: {{ include "cloudwatch-exporter-chart.fullname" . }}
 spec:
   selector:
-    app: cloudwatch-exporter-chart
+    app.kubernetes.io/name: {{ include "cloudwatch-exporter-chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: 9106
       protocol: TCP
+

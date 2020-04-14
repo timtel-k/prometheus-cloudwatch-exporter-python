@@ -9,4 +9,4 @@ EXPOSE 9106
 
 USER app
 
-CMD [ "python", "collector.py"]
+CMD [ "python", "jbt-athena-exporter.py"]
