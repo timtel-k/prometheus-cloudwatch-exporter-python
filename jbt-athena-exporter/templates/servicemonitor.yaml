@@ -1,0 +1,18 @@
+{{ if .Values.monitoring.operator.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "jbt-athena-exporter.fullname" . }}
+  labels:
+{{ toYaml .Values.monitoring.operator.serviceMonitor.selector | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "jbt-athena-exporter.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  endpoints:
+  {{- range $key, $value := .Values.monitoring.operator.endpoints }}
+    - port: {{ $key }}
+{{ toYaml $value | indent 6 }}
+  {{- end }}
+{{ end }}

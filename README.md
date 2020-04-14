@@ -32,8 +32,8 @@ This exporter is based on article:
 export AWS_ACCESS_KEY_ID=AKXXXXXXXXXXXXXXXXXH
 export AWS_SECRET_ACCESS_KEY=2XXXXXXXXXXXXXXXXXXXXXXXXXXXc
 export AWS_DEFAULT_REGION=us-east-1
-helm install --name exporter --namespace ns ./cloudwatch-exporter-chart/   --set aws.accessKeyId=$AWS_ACCESS_KEY_ID,aws.secretAccessKey=$AWS_SECRET_ACCESS_KEY,aws.defaultRegion=$AWS_DEFAULT_REGION --dry-run --debug
-helm install --name exporter --namespace ns ./cloudwatch-exporter-chart/   --set aws.accessKeyId=$AWS_ACCESS_KEY_ID,aws.secretAccessKey=$AWS_SECRET_ACCESS_KEY,aws.defaultRegion=$AWS_DEFAULT_REGION
+helm install --name exporter --namespace ns ./jbt-athena-exporter/   --set aws.accessKeyId=$AWS_ACCESS_KEY_ID,aws.secretAccessKey=$AWS_SECRET_ACCESS_KEY,aws.defaultRegion=$AWS_DEFAULT_REGION --dry-run --debug
+helm install --name exporter --namespace ns ./jbt-athena-exporter/   --set aws.accessKeyId=$AWS_ACCESS_KEY_ID,aws.secretAccessKey=$AWS_SECRET_ACCESS_KEY,aws.defaultRegion=$AWS_DEFAULT_REGION
 ```
 
 2. Get the application URL by running these commands:
